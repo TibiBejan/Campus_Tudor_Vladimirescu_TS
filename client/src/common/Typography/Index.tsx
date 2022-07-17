@@ -10,6 +10,7 @@ interface StyledTypographyProps {
 }
 
 export const H1 = styled.h1<StyledTypographyProps>`
+    font-family: ${props => props.theme.fonts.secondary};
     font-size: ${props => {
         switch(props.size) {
             case 'showcase':
@@ -84,7 +85,8 @@ export const H1 = styled.h1<StyledTypographyProps>`
     }
 `;
 
-export const H2 = styled.h1<StyledTypographyProps>`
+export const H2 = styled.h2<StyledTypographyProps>`
+    font-family: ${props => props.theme.fonts.secondary};
     font-size: 3.5rem;
     font-weight: ${props => {
         switch(props.fontWeight) {
@@ -140,7 +142,8 @@ export const H2 = styled.h1<StyledTypographyProps>`
     }
 `;
 
-export const H3 = styled.h1<StyledTypographyProps>`
+export const H3 = styled.h3<StyledTypographyProps>`
+    font-family: ${props => props.theme.fonts.secondary};
     font-size: 2.5rem;
     font-weight: ${props => {
         switch(props.fontWeight) {
@@ -196,7 +199,7 @@ export const H3 = styled.h1<StyledTypographyProps>`
     }
 `;
 
-export const Subtitle = styled.h1<StyledTypographyProps>`
+export const Subtitle = styled.h4<StyledTypographyProps>`
     font-size: 2rem;
     font-weight: ${props => {
         switch(props.fontWeight) {
@@ -345,7 +348,7 @@ export const LinkText = styled.p<StyledTypographyProps>`
     }
 `;
 
-export const InputText = styled.p<StyledTypographyProps>`
+export const InputText = styled.input<StyledTypographyProps>`
     font-size: 1.4rem;
     font-weight: 400;
     color: ${props => {

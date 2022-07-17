@@ -9,8 +9,7 @@ const Header:React.FC<DefaultProps> = () => {
     // State
     const [ menuToggled, setMenuToggled ] = useState<MenuState>({
         clicked: false,
-        buttonDisabled: false,
-        buttonLabel: 'Menu',
+        buttonDisabled: false
     });
     // Hooks
     const isScrolled = useWindowSize();
@@ -20,7 +19,6 @@ const Header:React.FC<DefaultProps> = () => {
             setMenuToggled((prevState) => ({
                 ...prevState,
                 clicked: !prevState.clicked,
-                buttonLabel: 'Close Menu',
                 buttonDisabled: !prevState.buttonDisabled,
             }));
             // Enable menu button after 1000ms timeout - finish menu animation
@@ -34,7 +32,6 @@ const Header:React.FC<DefaultProps> = () => {
             setMenuToggled((prevState) => ({
                 ...prevState,
                 clicked: !prevState.clicked,
-                buttonLabel: 'Menu',
                 buttonDisabled: !prevState.buttonDisabled,
             }));
             // Enable menu button after 1000ms timeout - finish menu animation

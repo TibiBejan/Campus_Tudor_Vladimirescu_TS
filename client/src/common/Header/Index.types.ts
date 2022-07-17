@@ -6,7 +6,6 @@ export interface DefaultProps {
 
 export interface MenuState {
     clicked: boolean,
-    buttonDisabled: boolean,
-    buttonLabel: string,
+    buttonDisabled: boolean
 }
 

@@ -5,7 +5,6 @@ export interface DefaultProps {
     menuState: {
         clicked: boolean,
         buttonDisabled: boolean,
-        buttonLabel: string,
     },
     handleMenuState():void,
     isScrolledFlag: boolean,
@@ -13,4 +12,13 @@ export interface DefaultProps {
 
 export interface StyledStickyProps {
     sticky: boolean
+}
+
+export interface StyledMenuActionProps {
+    $backgroundColor?: string,    
+}
+
+export interface StyledMenuTogglerProps {
+    active?: boolean,
+    inactive?: boolean,
 }
