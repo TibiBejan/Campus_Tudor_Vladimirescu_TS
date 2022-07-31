@@ -44,7 +44,7 @@ const Theme = {
         mobileSmall: '350px',
     },
     transitions: {
-        default: '0.35s ease-in-out',
+        default: '0.5s ease-in-out',
         cubicBezier: '0.75s cubic-bezier(0.4, 0, 0, 1)',
     }
 }

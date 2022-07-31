@@ -13,7 +13,7 @@ export const StyledNavbar = styled.nav<StyledStickyProps>`
     align-items: center;
     justify-content: space-between;
     background-color: ${props => props.sticky ? props.theme.colors.darkGrayBold : 'transparent'};
-    border-bottom: 0.2rem solid ${props => props.theme.colors.darkGrayLight};
+    border-bottom: 0.1rem solid ${props => props.theme.colors.darkGrayLight};
     z-index: 999;
     transition: ${props => props.theme.transitions.default};
 

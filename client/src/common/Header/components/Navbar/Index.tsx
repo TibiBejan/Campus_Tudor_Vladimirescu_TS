@@ -1,4 +1,5 @@
 import React from 'react';
+import { AnimatePresence } from 'framer-motion';
 // Types and Interfaces
 import { DefaultProps } from './Index.types';
 // Modules
@@ -8,9 +9,6 @@ import { H3, LinkText } from '../../../Typography/Index';
 import { StyledNavbar, StyledLogo, StyledLogoLink, StyledActions, NavbarAction, MenuToggler, MenuTogglerOpen, MenuTogglerClose, ActionLink, LanguageFlagButton } from './Index.style';
 
 const Navbar:React.FC<DefaultProps> = ({ menuState, handleMenuState, isScrolledFlag }) => {
-  
-  console.log(menuState);
-
   return (
     <StyledNavbar sticky={isScrolledFlag}>
       <StyledLogo sticky={isScrolledFlag}>
@@ -18,15 +16,38 @@ const Navbar:React.FC<DefaultProps> = ({ menuState, handleMenuState, isScrolledF
           {
             isScrolledFlag 
             ? (
-              // add delay on image showing - gsap?
-              <Image 
-                fileName="brand/tuiasi-university-brand-1.png" 
-                alt="Gheorghe Asachi Technical University of Iaşi Branding"
-              />
+              <AnimatePresence>
+                <Image 
+                  fileName="brand/tuiasi-university-brand-1.png" 
+                  alt="Gheorghe Asachi Technical University of Iaşi Branding"
+                />
+              </AnimatePresence>
             )
             : (
-              // add delay on title showing - gsap?
-              <H3 color="dark" fontWeight='bold' uppercase>Tudor</H3>
+              <AnimatePresence>
+                <H3 
+                  key="navbar-logo-heading"
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: 1,
+                    transition: {
+                      delay: 0.35,
+                      duration: 0.5,
+                    }
+                  }}
+                  exit={{ 
+                    opacity: 0,
+                    transition: {
+                      duration: 0
+                    }
+                  }}
+                  color="dark" 
+                  fontWeight='bold' 
+                  $uppercase={true}
+                >
+                  Tudor
+                </H3>
+              </AnimatePresence>
             )
           }
         </StyledLogoLink>

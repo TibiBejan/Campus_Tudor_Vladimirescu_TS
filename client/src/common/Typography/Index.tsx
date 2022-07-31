@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
-
+import { motion } from 'framer-motion';
 interface StyledTypographyProps {
     size?: string,
     fontWeight?: string,
     textAlign?: string,
     lineHeight?: string,
-    uppercase?: boolean,
-    verticalText?: boolean,
+    $uppercase?: boolean,
+    $verticalText?: boolean,
 }
 
 export const H1 = styled.h1<StyledTypographyProps>`
@@ -14,7 +14,7 @@ export const H1 = styled.h1<StyledTypographyProps>`
     font-size: ${props => {
         switch(props.size) {
             case 'showcase':
-                return '6.5rem';
+                return '5.5rem';
             default:
                 return '4rem';
         }
@@ -38,7 +38,7 @@ export const H1 = styled.h1<StyledTypographyProps>`
         }
     }};
     letter-spacing: 0.1rem;
-    text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
+    text-transform: ${props => props.$uppercase ? 'uppercase' : 'none'};
     text-align: ${props => {
         switch(props.textAlign) {
             case 'center':
@@ -109,7 +109,7 @@ export const H2 = styled.h2<StyledTypographyProps>`
         }
     }};
     letter-spacing: 0.1rem;
-    text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
+    text-transform: ${props => props.$uppercase ? 'uppercase' : 'none'};
     text-align: ${props => {
         switch(props.textAlign) {
             case 'center':
@@ -142,7 +142,7 @@ export const H2 = styled.h2<StyledTypographyProps>`
     }
 `;
 
-export const H3 = styled.h3<StyledTypographyProps>`
+export const H3 = styled(motion.h3)<StyledTypographyProps>`
     font-family: ${props => props.theme.fonts.secondary};
     font-size: 2.5rem;
     font-weight: ${props => {
@@ -166,7 +166,7 @@ export const H3 = styled.h3<StyledTypographyProps>`
         }
     }};
     letter-spacing: 0.1rem;
-    text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
+    text-transform: ${props => props.$uppercase ? 'uppercase' : 'none'};
     text-align: ${props => {
         switch(props.textAlign) {
             case 'center':
@@ -217,12 +217,14 @@ export const Subtitle = styled.h4<StyledTypographyProps>`
                 return props.theme.colors.white;
             case 'dark':
                 return props.theme.colors.darkGrayBold;
+            case 'gray':
+                return props.theme.colors.mediumGrayLight;
             default: 
                 return props.theme.colors.white;
         }
     }};
     letter-spacing: 0.1rem;
-    text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
+    text-transform: ${props => props.$uppercase ? 'uppercase' : 'none'};
     text-align: ${props => {
         switch(props.textAlign) {
             case 'center':
@@ -251,7 +253,7 @@ export const Subtitle = styled.h4<StyledTypographyProps>`
     }
 `;
 
-export const Text = styled.p<StyledTypographyProps>`
+export const Text = styled(motion.p)<StyledTypographyProps>`
     font-size: ${props => {
         switch(props.size) {
             case 'xLarge':
@@ -284,6 +286,8 @@ export const Text = styled.p<StyledTypographyProps>`
                 return props.theme.colors.white;
             case 'dark':
                 return props.theme.colors.darkGrayBold;
+            case 'gray':
+                return props.theme.colors.mediumGrayLight;
             default: 
                 return props.theme.colors.white;
         }
@@ -302,8 +306,8 @@ export const Text = styled.p<StyledTypographyProps>`
                 return 'left'
         }
     }};
-    text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
-    ${props => props.verticalText && css`
+    text-transform: ${props => props.$uppercase ? 'uppercase' : 'none'};
+    ${props => props.$verticalText && css`
         line-height: 150%;
         writing-mode: sideways-rl;
         text-orientation: mixed;
@@ -327,8 +331,21 @@ export const Text = styled.p<StyledTypographyProps>`
     }
 `;
 
-export const LinkText = styled.p<StyledTypographyProps>`
-    font-size: 1.6rem;
+export const LinkText = styled(motion.p)<StyledTypographyProps>`
+    font-size: ${props => {
+        switch(props.size) {
+            case 'xlarge':
+                return '2.8rem';
+            case 'large':
+                return '2.4rem';
+            case 'medium':
+                return '2rem';
+            case 'small':
+                return '1.4rem';
+            default:
+                return '1.6rem';
+        }
+    }};
     font-weight: 400;
     color: ${props => {
         switch(props.color) {
@@ -336,15 +353,30 @@ export const LinkText = styled.p<StyledTypographyProps>`
                 return props.theme.colors.white;
             case 'dark':
                 return props.theme.colors.darkGrayBold;
+            case 'gray':
+                return props.theme.colors.mediumGrayLight;
             default: 
                 return props.theme.colors.white;
         }
     }};
     text-align: center;
-    text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
+    text-transform: ${props => props.$uppercase ? 'uppercase' : 'none'};
    
     @media screen and (max-width: ${props => props.theme.breakpoints.large}) {
-        font-size: 1.2rem;
+        font-size: ${props => {
+            switch(props.size) {
+                case 'xlarge':
+                    return '2.2rem';
+                case 'large':
+                    return '1.8rem'
+                case 'medium':
+                        return '1.6rem'
+                case 'small':
+                    return '1.2rem';
+                default:
+                    return '1.4rem'
+            }
+        }};
     }
 `;
 
@@ -363,7 +395,7 @@ export const InputText = styled.input<StyledTypographyProps>`
     }};
     line-height: 150%;
     text-align: center;
-    text-transform: ${props => props.uppercase ? 'uppercase' : 'none'};
+    text-transform: ${props => props.$uppercase ? 'uppercase' : 'none'};
    
     @media screen and (max-width: ${props => props.theme.breakpoints.large}) {
         font-size: 1.2rem;

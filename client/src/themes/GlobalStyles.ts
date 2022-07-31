@@ -117,6 +117,10 @@ const GlobalStyles = createGlobalStyle<Props>`
         line-height: 1;
     }
 
+    .no-overflow {
+        overflow: hidden;
+    }
+
     ol, ul {
         list-style: none;
     }
@@ -145,12 +149,12 @@ const GlobalStyles = createGlobalStyle<Props>`
 
     ::-moz-selection { /* Code for Firefox */
        color: ${props => props.theme.colors.white};
-       background: ${props => props.theme.colors.primaryYellow};
+       background: ${props => props.theme.colors.black};
     }
 
     ::selection {
        color: ${props => props.theme.colors.white};
-       background: ${props => props.theme.colors.primaryYellow};
+       background: ${props => props.theme.colors.black};
     }
 `;
 

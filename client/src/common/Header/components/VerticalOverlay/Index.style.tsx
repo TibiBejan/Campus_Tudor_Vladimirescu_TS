@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { Link } from 'react-router-dom';
 import { LinkText } from "../../../Typography/Index";
 import { StyledFadeInProps, StyledFadeOutProps, StyledVerticalTextProps } from './Index.types';
 
@@ -13,7 +13,7 @@ export const StyledOverlay = styled.div`
     display: grid;
     grid-template-rows: 1fr minmax(min-content, max-content);
     padding-top: 12rem;
-    border-right: 0.2rem solid ${props => props.theme.colors.darkGrayLight};
+    border-right: 0.1rem solid ${props => props.theme.colors.darkGrayLight};
     background-color: ${props => props.theme.colors.darkGrayBold};
     z-index: 999;
 
@@ -69,6 +69,9 @@ export const OverlaySocialLinks = styled(StyledList)<StyledFadeInProps>`
 
 export const ListItemWrapper = styled.li`
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:not(:first-child) {
         margin-top: ${props => props.theme.padding.medium};
@@ -137,48 +140,16 @@ export const StyledExternalLink = styled.a<StyledVerticalTextProps>`
     }
 `;
 
-export const StyledLink = styled(Link)<StyledVerticalTextProps>`
+export const StyledLink = styled(Link)`
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    ${props => props.$verticaltext && css`
-        width: 100%;
-        height: auto;
-        transform: rotate(180deg);
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-    `} 
 
-    & svg {
+    svg {
         width: 35%;
         height: 35%;   
         fill: ${props => props.theme.colors.lightGrayBold};
-    }
-
-    ${LinkText} {
-        position: relative;
-        user-select: none;
-        cursor: inherit;
-        padding-left: 0.5rem;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            height: 100%;
-            width: 0.2rem;
-            background-color: ${props => props.theme.colors.lightGrayBold};
-            transform: scaleY(0);
-            transform-origin: top;
-            transition: ${props => props.theme.transitions.default};
-        }
-    
-        &:hover::before {
-            transform: scaleY(1);
-        }
     }
 `;

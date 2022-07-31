@@ -1,0 +1,150 @@
+{
+    "menuNavigation": [
+        {
+            "id": "navigation-campus-group-1", 
+            "navigationGroupTitle": "Campus Tudor",
+            "navigationLinks": [
+                {
+                    "id": "campus-group-1-about-us",
+                    "title": "About Us",
+                    "path": "/about-us"
+                },
+                {
+                    "id": "campus-group-1-student-services",
+                    "title": "Student Services",
+                    "path": "/student-services"
+                },
+                {
+                    "id": "campus-group-1-news",
+                    "title": "Latest News",
+                    "path": "/news"
+                },
+                {
+                    "id": "campus-group-1-contact-us",
+                    "title": "Contact Us",
+                    "path": "/contact-us"
+                }
+            ]
+        },
+        {
+            "id": "navigation-campus-group-2", 
+            "navigationGroupTitle": "Campus Facilities",
+            "navigationLinks": [
+                {
+                    "id": "campus-group-2-cafeteria",
+                    "title": "Cafeteria",
+                    "path": "/cafeteria"
+                },
+                {
+                    "id": "campus-group-2-sports-base",
+                    "title": "Sports Base",
+                    "path": "/sports-base"
+                },
+                {
+                    "id": "campus-group-2-residence-halls",
+                    "title": "Residence Halls",
+                    "path": "/residence-halls"
+                },
+                {
+                    "id": "campus-group-2-health-security",
+                    "title": "Health and Security",
+                    "path": "/health-security"
+                }
+            ]
+        },
+        {
+            "id": "navigation-campus-group-3", 
+            "navigationGroupTitle": "Student Life",
+            "navigationLinks": [
+                {
+                    "id": "campus-group-3-account",
+                    "title": "Account",
+                    "path": "/login"
+                },
+                {
+                    "id": "campus-group-3-organisations",
+                    "title": "Organisations",
+                    "path": "/organisations"
+                },
+                {
+                    "id": "campus-group-3-accommodation",
+                    "title": "Accommodation",
+                    "path": "/accommodation"
+                },
+                {
+                    "id": "campus-group-3-tuiasi",
+                    "title": "Tuiasi",
+                    "path": "/tuiasi"
+                }
+            ]
+        }
+    ],
+    "menuUniversities": [
+        {
+            "id": "arh",
+            "title": "Facultatea de Arhitectură „G.M. Cantacuzino”",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://arh.tuiasi.ro/"
+        },
+        {
+            "id": "ac",
+            "title": "Facultatea de Automatică și Calculatoare",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://ac.tuiasi.ro/"
+        },
+        {
+            "id": "icpm",
+            "title": "Facultatea de Inginerie Chimică și Protecția Mediului „Cristofor Simionescu”",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://icpm.tuiasi.ro/"
+        },
+        {
+            "id": "ci",
+            "title": "Facultatea de Construcţii şi Instalaţii",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://ci.tuiasi.ro/"
+        },
+        {
+            "id": "cmmi",
+            "title": "Facultatea Construcţii de Maşini și Management Industrial",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://cmmi.tuiasi.ro/"
+        },
+        {
+            "id": "etti",
+            "title": "Facultatea de Electronică, Telecomunicaţii şi Tehnologia Informaţiei",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://etti.tuiasi.ro/"
+        },
+        {
+            "id": "hgim",
+            "title": "Facultatea de Hidrotehnică, Geodezie şi Ingineria Mediului",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://hgim.tuiasi.ro/"
+        },
+        {
+            "id": "ieeia",
+            "title": "Facultatea de Inginerie Electrică, Energetică şi Informatică Aplicată",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://ieeia.tuiasi.ro/"
+        },
+        {
+            "id": "mec",
+            "title": "Facultatea de Mecanică",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://mec.tuiasi.ro/"
+        },
+        {
+            "id": "sim",
+            "title": "Facultatea de Ştiinţa şi Ingineria Materialelor",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://sim.tuiasi.ro/"
+        },
+        {
+            "id": "dima",
+            "title": "Facultatea de Design Industrial și Managementul Afacerilor",
+            "subtitle": "Gheorghe Asachi",
+            "externalLink": "https://dima.tuiasi.ro/"
+        }
+    ]
+}
