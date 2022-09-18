@@ -6,16 +6,15 @@ import morgan from 'morgan';
 import environmentConstants from '@config/constants';
 
 // Middlewares
-import { morganMiddleware } from '@api/v1/middlewares';
+import { morganMiddleware, errorMiddleware } from '@api/v1/middlewares';
 
 // Routes
 
 // Utils
-import { logger } from '@api/v1/helpers';
+import { logger, AppError } from '@api/v1/helpers';
 
 
 const app: Express = express();
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,5 +32,11 @@ app.get('/api/v1/status', (req: Request, res: Response, next: NextFunction) => {
         message: "THE API is up and running!"
     })
 });
+
+app.all('*', (req: Request, res: Response, next: NextFunction) => {
+    next(new AppError(`Can not find ${req.originalUrl} on this server!`, 404, "ApiError", "RouteNotFound"))
+});
+
+app.use(errorMiddleware);
 
 export default app;

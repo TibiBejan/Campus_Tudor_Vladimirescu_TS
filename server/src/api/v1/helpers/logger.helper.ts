@@ -63,6 +63,14 @@ const format: winston.Logform.Format = winston.format.combine(
     winston.format.printf(
         (info) => `${info.timestamp} ${info.level}: ${info.message}`,
     ),
+    /*
+    * Define the format of the message showing the error
+    */
+    winston.format.errors({ stack: true }),
+    /*
+    * Define the format of the message showing metadata
+    */
+    winston.format.metadata(),
 )
 
 /*
@@ -77,7 +85,30 @@ const transports = [
         filename: 'logs/%DATE%/errors.log',
         datePattern: 'DD-MMM-YYYY',
         level: 'error',
-        format: winston.format.combine(winston.format.uncolorize()),
+        format: winston.format.combine(
+            /*
+            * Tell Winston that the logs must be uncolorized
+            */
+            winston.format.uncolorize(),
+            /*
+            * Add the message timestamp with the preferred format
+            */
+            winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+            /*
+            * Define the format of the message showing the timestamp, the level and the message
+            */
+            winston.format.printf(
+                (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+            ),
+            /*
+            * Define the format of the message showing the error
+            */
+            winston.format.errors({ stack: true }),
+            /*
+            * Define the format of the message showing metadata
+            */
+            winston.format.metadata(),
+        ),
     }),
     /*
     * Allow to print all the error message inside the all.log file
@@ -87,7 +118,30 @@ const transports = [
         filename: 'logs/%DATE%/combined.log',
         datePattern: 'DD-MMM-YYYY',
         level: 'debug',
-        format: winston.format.combine(winston.format.uncolorize()),
+        format: winston.format.combine(
+            /*
+            * Tell Winston that the logs must be uncolorized
+            */
+            winston.format.uncolorize(),
+            /*
+            * Add the message timestamp with the preferred format
+            */
+            winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+            /*
+            * Define the format of the message showing the timestamp, the level and the message
+            */
+            winston.format.printf(
+                (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+            ),
+            /*
+            * Define the format of the message showing the error
+            */
+            winston.format.errors({ stack: true }),
+            /*
+            * Define the format of the message showing metadata
+            */
+            winston.format.metadata(),
+        ),
     }),
 ]
 
@@ -104,14 +158,60 @@ const logger: winston.Logger = winston.createLogger({
         new DailyRotateFile({
             filename: 'logs/%DATE%/exception.log',
             datePattern: 'DD-MMM-YYYY',
-            format: winston.format.combine(winston.format.uncolorize()),
+            format: winston.format.combine(
+                /*
+                * Tell Winston that the logs must be uncolorized
+                */
+                winston.format.uncolorize(),
+                /*
+                * Add the message timestamp with the preferred format
+                */
+                winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+                /*
+                * Define the format of the message showing the timestamp, the level and the message
+                */
+                winston.format.printf(
+                    (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+                ),
+                /*
+                * Define the format of the message showing the error
+                */
+                winston.format.errors({ stack: true }),
+                /*
+                * Define the format of the message showing metadata
+                */
+                winston.format.metadata(),
+            ),
         }),
     ],
     rejectionHandlers: [
         new DailyRotateFile({
             filename: 'logs/%DATE%/rejections.log',
             datePattern: 'DD-MMM-YYYY',
-            format: winston.format.combine(winston.format.uncolorize()),
+            format: winston.format.combine(
+                /*
+                * Tell Winston that the logs must be uncolorized
+                */
+                winston.format.uncolorize(),
+                /*
+                * Add the message timestamp with the preferred format
+                */
+                winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+                /*
+                * Define the format of the message showing the timestamp, the level and the message
+                */
+                winston.format.printf(
+                    (info) => `${info.timestamp} ${info.level}: ${info.message}`,
+                ),
+                /*
+                * Define the format of the message showing the error
+                */
+                winston.format.errors({ stack: true }),
+                /*
+                * Define the format of the message showing metadata
+                */
+                winston.format.metadata(),
+            ),
         }),
     ],
 })
