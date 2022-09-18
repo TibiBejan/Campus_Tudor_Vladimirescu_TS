@@ -1,6 +1,6 @@
+import environmentConstants from '@config/constants';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import environmentConstants from '@config/constants';
 
 const AppDataSource = new DataSource({
     type: "mysql",

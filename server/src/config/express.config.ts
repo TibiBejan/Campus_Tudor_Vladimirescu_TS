@@ -1,13 +1,13 @@
 /*
 * ================ Modules import ================
 */
-import express, { Express, Request, Response, NextFunction, response } from 'express';
-import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import express, { Express, NextFunction, Request, Response, response } from 'express';
+import helmet from 'helmet';
 /*
 * ================ Middlewares import ================
 */
-import { morganMiddleware, errorMiddleware } from '@api/v1/middlewares';
+import { errorMiddleware, morganMiddleware } from '@api/v1/middlewares';
 /*
 * ================ Routes import ================
 */
@@ -15,7 +15,7 @@ import router from '@api/v1/routes';
 /*
 * ================ Helpers import ================
 */
-import { logger, AppError } from '@api/v1/helpers';
+import { AppError, logger } from '@api/v1/helpers';
 import { AppDataSource } from '@config/database';
 
 /*
