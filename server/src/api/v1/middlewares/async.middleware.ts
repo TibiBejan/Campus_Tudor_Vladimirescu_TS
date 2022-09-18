@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+import { AsyncHandler } from '@api/v1/interfaces/types/asyncHandler.type';
 
-type AsyncHandlerFunc = (req: Request, res: Response, next: NextFunction) => Promise<void>
-
-const asyncHandler = (fn: AsyncHandlerFunc) => {
+const asyncHandler = (fn: AsyncHandler) => {
     return (req: Request, res: Response, next: NextFunction): void => {
         fn(req, res, next).catch(next);
     }
