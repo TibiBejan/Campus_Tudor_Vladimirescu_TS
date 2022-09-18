@@ -1,37 +1,30 @@
 import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
-    name: 'user'
+    name: 'securables'
 })
-class User {
+class Securables {
     @PrimaryGeneratedColumn('uuid')
-    user_id!: string
-
-    @Column()
-    first_name!: string
-
-    @Column()
-    last_name!: string
+    securables_id!: string
 
     @Column({
         unique: true,
     })
-    email_adress!: string
+    title!: string
 
     @Column({
         unique: true,
     })
-    phone_number!: string
-
-    @Column()
-    password!: string
+    slug!: string
 
     @Column({
-        nullable: true,
+        nullable: true
     })
-    password_changed_at?: Date
+    description!: string
 
-    @Column()
+    @Column({
+        default: false,
+    })
     is_active!: boolean
 
     @CreateDateColumn({
@@ -50,4 +43,4 @@ class User {
     deletedAt?: Date
 }
 
-export default User;
+export default Securables;
