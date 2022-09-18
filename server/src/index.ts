@@ -2,7 +2,7 @@
 * =========== Catch all uncaught exceptions ============
 */
 process.on('uncaughtException', (err: Error) => {
-    logger.debug('Uncaught Exception, shutting down the server...');
+    logger.warn('Uncaught Exception, shutting down the server...');
     logger.error(err);
     process.exit(1);
 });
@@ -30,7 +30,7 @@ const server = app.listen(port, (): void => {
 * =========== Catch all unhandled rejections ===========
 */
 process.on('unhandledRejection', (err: Error) => {
-    logger.debug('Unhandled Rejection, shutting down the server...');
+    logger.warn('Unhandled Rejection, shutting down the server...');
     logger.error(err);
     server.close(() => process.exit(1));
 });

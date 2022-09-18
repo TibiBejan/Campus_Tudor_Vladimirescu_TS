@@ -1,7 +1,7 @@
 /*
 * ================ Modules import ================
 */
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { Express, Request, Response, NextFunction, response } from 'express';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 /*
@@ -16,12 +16,23 @@ import router from '@api/v1/routes';
 * ================ Helpers import ================
 */
 import { logger, AppError } from '@api/v1/helpers';
-
+import { AppDataSource } from '@config/database';
 
 /*
 * ================ App init ================
 */
 const app: Express = express();
+
+/*
+* ================ Typeorm MySQL Database init ================
+*/
+AppDataSource.initialize()
+    .then(() => {
+        logger.info('MySQL Database up and running...')
+    })
+    .catch((error) => {
+        throw new AppError("Failed to connect to the MySQL database!", 503, "DatabaseError", "ConnectionFailed");
+    });
 
 /*
 * ================ Global middlewares ================
