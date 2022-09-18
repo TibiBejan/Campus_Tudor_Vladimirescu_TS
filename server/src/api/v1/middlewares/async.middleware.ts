@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { AsyncHandler } from '@api/v1/interfaces/types/asyncHandler.type';
 
-const asyncHandler = (fn: AsyncHandler) => {
+const asyncHandlerMiddleware = (fn: AsyncHandler) => {
     return (req: Request, res: Response, next: NextFunction): void => {
         fn(req, res, next).catch(next);
     }
@@ -12,4 +12,4 @@ const asyncHandler = (fn: AsyncHandler) => {
 */
 // const asyncHandler = (fn) => (req: Request, res: Response, next: NextFunction) => fn(req, res, next).catch(next);
 
-export default asyncHandler;
+export default asyncHandlerMiddleware;
