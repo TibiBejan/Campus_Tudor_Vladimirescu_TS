@@ -1,9 +1,9 @@
-import { PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, ManyToOne, JoinColumn } from "typeorm";
+import { CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import Role from './role.model';
 import Securable from './securable.model';
 
 @Entity({
-    name: 'role_securables'
+    name: 'role_securable'
 })
 class RoleSecurables {
     @PrimaryColumn('uuid')
