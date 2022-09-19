@@ -1,11 +1,12 @@
-import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, OneToMany, JoinTable } from "typeorm";
+import UserRole from './userRole.model';
 
 @Entity({
     name: 'user'
 })
 class User {
     @PrimaryGeneratedColumn('uuid')
-    user_id!: string
+    id!: string
 
     @Column()
     first_name!: string
@@ -48,6 +49,9 @@ class User {
         name: 'deleted_at'
     })
     deletedAt?: Date
+
+    @OneToMany(() => UserRole, userRole => userRole.user)
+    roleConnection: UserRole[]
 }
 
 export default User;

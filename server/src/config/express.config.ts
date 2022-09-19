@@ -31,7 +31,7 @@ AppDataSource.initialize()
         logger.info('MySQL Database up and running...')
     })
     .catch((error) => {
-        throw new AppError("Failed to connect to the MySQL database!", 503, "DatabaseError", "ConnectionFailed");
+        logger.error(new AppError("Failed to connect to the MySQL database!", 503, "DatabaseError", "ConnectionFailed"));
     });
 
 /*
@@ -46,7 +46,7 @@ app.use(morganMiddleware);
 /*
 * ================ Routes config ================
 */
-app.use('api/v1/', router);
+app.use('api/v1', router);
 
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

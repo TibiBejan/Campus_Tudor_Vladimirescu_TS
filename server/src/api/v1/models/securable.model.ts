@@ -1,11 +1,12 @@
-import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import RoleSecurable from "./roleSecurable.model";
 
 @Entity({
-    name: 'securables'
+    name: 'securable'
 })
-class Securables {
+class Securable {
     @PrimaryGeneratedColumn('uuid')
-    securables_id!: string
+    id!: string
 
     @Column({
         unique: true,
@@ -41,6 +42,9 @@ class Securables {
         name: 'deleted_at'
     })
     deletedAt?: Date
+
+    @OneToMany(() => RoleSecurable, roleSecurable => roleSecurable.securable)
+    roleConnection: RoleSecurable[]
 }
 
-export default Securables;
+export default Securable;

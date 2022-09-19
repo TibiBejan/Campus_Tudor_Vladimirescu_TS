@@ -1,16 +1,16 @@
 import { PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, ManyToOne, JoinColumn } from "typeorm";
-import Role from "./role.model";
-import User from './user.model';
+import Role from './role.model';
+import Securable from './securable.model';
 
 @Entity({
-    name: 'user_role'
+    name: 'role_securables'
 })
-class UserRole {
-    @PrimaryColumn('uuid')
-    user_id: string
-
+class RoleSecurables {
     @PrimaryColumn('uuid')
     role_id: string
+
+    @PrimaryColumn('uuid')
+    securable_id: string
 
     @CreateDateColumn({
         name: 'created_at'
@@ -27,21 +27,22 @@ class UserRole {
     })
     deletedAt?: Date
 
-    @ManyToOne(() => User, user => user.roleConnection, {
-        onDelete: 'CASCADE'
-    })
-    @JoinColumn({
-        name: 'user_id'
-    })
-    user: User
-
-    @ManyToOne(() => Role, role => role.userConnection, {
+    @ManyToOne(() => Role, role => role.securableConnection, {
         onDelete: 'CASCADE'
     })
     @JoinColumn({
         name: 'role_id'
     })
     role: Role
+
+    @ManyToOne(() => Securable, securable => securable.roleConnection, {
+        onDelete: 'CASCADE',
+    })
+    @JoinColumn({
+        name: 'securable_id'
+    })
+    securable: Securable
 }
 
-export default UserRole;
+export default RoleSecurables;
+

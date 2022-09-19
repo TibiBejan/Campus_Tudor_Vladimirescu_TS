@@ -3,7 +3,7 @@ import userRouter from './user.route';
 
 const router: Router = Router();
 
-router.get('/api/status', (req: Request, res: Response) => {
+router.get('/status', (req: Request, res: Response) => {
     res.status(200).json({
         status: "success",
         message: "Server is up and running...",
@@ -13,6 +13,7 @@ router.get('/api/status', (req: Request, res: Response) => {
         url: req.originalUrl,
     });
 });
+
 router.use('/user', userRouter);
 
 

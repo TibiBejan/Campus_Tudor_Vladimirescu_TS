@@ -1,7 +1,7 @@
 import environmentConstants from '@config/constants';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User, UserRole, Role, RoleSecurables, Securables } from '@api/v1/models';
+import { User, UserRole, Role, RoleSecurable, Securable } from '@api/v1/models';
 
 const AppDataSource = new DataSource({
     type: "mysql",
@@ -12,7 +12,13 @@ const AppDataSource = new DataSource({
     database: environmentConstants.mysqlDatabase,
     synchronize: true,
     logging: true,
-    entities: [],
+    entities: [
+        User,
+        UserRole,
+        Role,
+        RoleSecurable,
+        Securable
+    ],
     subscribers: [],
     migrations: [],
 });

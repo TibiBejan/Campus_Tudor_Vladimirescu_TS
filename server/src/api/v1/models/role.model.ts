@@ -1,11 +1,13 @@
-import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import RoleSecurable from "./roleSecurable.model";
+import UserRole from "./userRole.model";
 
 @Entity({
     name: 'role'
 })
 class Role {
     @PrimaryGeneratedColumn('uuid')
-    role_id!: string
+    id!: string
 
     @Column({
         unique: true,
@@ -41,6 +43,12 @@ class Role {
         name: 'deleted_at'
     })
     deletedAt?: Date
+
+    @OneToMany(() => UserRole, userRole => userRole.role)
+    userConnection: UserRole[]
+
+    @OneToMany(() => RoleSecurable, roleSecurable => roleSecurable.role)
+    securableConnection: RoleSecurable[]
 }
 
 export default Role;
