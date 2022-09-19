@@ -10,7 +10,7 @@ router.get('/status', (req: Request, res: Response) => {
         timestamp: new Date().toISOString(),
         ip: req.ip,
         hostname: req.hostname,
-        url: req.originalUrl,
+        url: req.originalUrl
     });
 });
 
