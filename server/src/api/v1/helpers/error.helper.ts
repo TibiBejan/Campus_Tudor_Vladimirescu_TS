@@ -22,10 +22,6 @@ export class AppError extends Error {
 
 export const sendDevelopmentError: SendError = (err, res) => {
     /*
-    * ============== Send the error to Winston logger ============== 
-    */
-    logger.error(err);
-    /*
     * =========== Send the response error to the client ============ 
     */
     res.status(err.statusCode).json({

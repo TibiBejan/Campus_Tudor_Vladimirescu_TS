@@ -7,7 +7,7 @@ import helmet from 'helmet';
 /*
 * ================ Middlewares import ================
 */
-import { errorMiddleware, morganMiddleware } from '@api/v1/middlewares';
+import { errorMiddleware, errorLoggingMiddleware, morganMiddleware } from '@api/v1/middlewares';
 /*
 * ================ Routes import ================
 */
@@ -56,6 +56,8 @@ app.all('*', (req: Request, res: Response, next: NextFunction) => {
 /*
 * ================ Global error middleware ================
 */
+
+app.use(errorLoggingMiddleware);
 app.use(errorMiddleware);
 
 export default app;
