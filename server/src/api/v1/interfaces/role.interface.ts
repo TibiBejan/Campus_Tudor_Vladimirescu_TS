@@ -1,13 +1,10 @@
-import { Request, Response } from "express";
-import { Send } from "express-serve-static-core";
-
-export interface ICreateRoleReqBody extends Request {
+export interface IRoleBodyWrite {
     title: string;
     slug: string;
-    description?: string;
+    description: string;
     is_active: boolean;
 }
 
-export interface IRoleResponse<ResBody> extends Response {
-    json: Send<ResBody, this>;
+export interface IRoleBodyDelete {
+    id: string;
 }

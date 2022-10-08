@@ -1,5 +1,5 @@
-import { SendError } from "@api/v1/interfaces/types/errorHandler.type";
 import { logger } from '@api/v1/helpers';
+import { SendError } from "@api/v1/interfaces/types/errorHandler.type";
 
 export class AppError extends Error {
     public readonly statusCode: number;
@@ -21,6 +21,18 @@ export class AppError extends Error {
 }
 
 export const sendDevelopmentError: SendError = (err, res) => {
+    /*
+    * ============== Send the error to Winston logger console ============== 
+    */
+    logger.error("ERROR");
+    logger.error(`Type: ${err.name ? err.name : 'Unhandled Error'}`);
+    logger.error(`Message: ${err.message}`);
+    logger.error(`StatusCode: ${err.statusCode}`);
+
+    logger.error('===========================');
+
+    logger.error(err);
+
     /*
     * =========== Send the response error to the client ============ 
     */

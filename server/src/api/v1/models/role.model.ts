@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import RoleSecurable from "./roleSecurable.model";
 import UserRole from "./userRole.model";
 
@@ -25,7 +25,7 @@ class Role {
     description!: string
 
     @Column({
-        default: false,
+        default: true,
     })
     is_active!: boolean
 

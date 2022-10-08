@@ -1,4 +1,5 @@
-import { Router, Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
+import roleRouter from './role.route';
 import userRouter from './user.route';
 
 const router: Router = Router();
@@ -13,8 +14,7 @@ router.get('/status', (req: Request, res: Response) => {
         url: req.originalUrl
     });
 });
-
 router.use('/user', userRouter);
-
+router.use('/role', roleRouter);
 
 export default router;

@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
 import { AsyncHandler } from '@api/v1/interfaces/types/asyncHandler.type';
+import { NextFunction, Request, Response } from 'express';
 
 const asyncHandlerMiddleware = (fn: AsyncHandler) => {
     return (req: Request, res: Response, next: NextFunction): void => {
