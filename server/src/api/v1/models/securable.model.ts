@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import RoleSecurable from "./roleSecurable.model";
 
 @Entity({
@@ -6,7 +6,7 @@ import RoleSecurable from "./roleSecurable.model";
 })
 class Securable {
     @PrimaryGeneratedColumn('uuid')
-    id!: string
+    securable_id!: string
 
     @Column({
         unique: true,

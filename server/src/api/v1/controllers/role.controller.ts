@@ -1,32 +1,64 @@
+import { AppError } from "@api/v1/helpers";
 import { asyncMiddleware } from "@api/v1/middlewares";
+import { create, readAll, readById } from '@api/v1/services/role.service';
 import { NextFunction, Request, Response } from "express";
-// import { ICreateRoleReqBody, IRoleResponse } from "@api/v1/interfaces/role.interface";
-import { IRoleBodyWrite } from "@api/v1/interfaces/role.interface";
 
 export const createRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
-    const data = req.body as IRoleBodyWrite;
-    console.log(data);
+    try {
+        const roleResource = req.body;
+        const roleId = await create(roleResource);
 
-    res.status(200).json({
-        status: "success",
-        message: "Role created",
-    });
+        res.status(201).json({
+            success: true,
+            payload: {
+                id: roleId,
+            },
+            error: null,
+            message: 'Success, user role inserted into the database!'
+        });
+    }
+    catch(err) {
+        next(err);
+    }
 });
 
 export const getRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-        status: "success",
-        message: "Role fetched from the database",
-    });
+    try {
+        const { roleId } = req.params;
+        const role = await readById(roleId);
+
+        res.status(200).json({
+            success: true,
+            payload: {
+                role,
+            },
+            error: null,
+            message: 'Success, user role fetched from the database!',
+        });
+    }
+    catch(err) {
+        next(err)
+    }
 });
 
 export const getRoles = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-        status: "success",
-        message: "Roles fetched from the database",
-    });
-});
+    try {
+        const roles = await readAll();
 
+        res.status(200).json({
+            success: true,
+            payload: {
+                roles,
+                total_results: roles.length,
+            },
+            error: null,
+            message: 'Success, user roles fetched from the database!',
+        });
+    }
+    catch(err) {
+        next(err);
+    }
+});
 
 export const updateRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({

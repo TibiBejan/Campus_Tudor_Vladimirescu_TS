@@ -26,7 +26,7 @@ const validatorMiddleware: ValidatorHandler = (schema, property) => {
             if (err instanceof Joi.ValidationError) {
                 const { details } = err;
                 const message = details.map(detail => detail.message). join(' ');
-                return next(new AppError(message, 422, 'Validation', 'ValidationErrors'))
+                return next(new AppError(message, 422, 'Validation', 'ValidationError'))
             }            
         }
     }

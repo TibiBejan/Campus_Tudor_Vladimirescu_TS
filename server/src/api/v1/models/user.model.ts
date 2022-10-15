@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, OneToMany, JoinTable } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import UserRole from './userRole.model';
 
 @Entity({
@@ -6,7 +6,7 @@ import UserRole from './userRole.model';
 })
 class User {
     @PrimaryGeneratedColumn('uuid')
-    id!: string
+    user_id!: string
 
     @Column()
     first_name!: string

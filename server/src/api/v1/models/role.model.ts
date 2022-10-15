@@ -7,7 +7,7 @@ import UserRole from "./userRole.model";
 })
 class Role {
     @PrimaryGeneratedColumn('uuid')
-    id!: string
+    role_id!: string
 
     @Column({
         unique: true,
