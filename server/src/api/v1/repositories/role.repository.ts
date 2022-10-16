@@ -2,33 +2,39 @@ import { CreateRoleDTO, PatchRoleDTO, PutRoleDTO } from '@api/v1/dto/role.dto';
 import { AppError } from '@api/v1/helpers';
 import { Role } from '@api/v1/models';
 import { AppDataSource } from '@config/database';
-import { InsertResult } from 'typeorm';
+import { InsertResult, TypeORMError, UpdateResult } from 'typeorm';
 
-export const addRole = async (resource: CreateRoleDTO): Promise<InsertResult | AppError> => {
+export const addRole = async (resource: CreateRoleDTO): Promise<InsertResult | TypeORMError> => {
     const queryResult = await AppDataSource.createQueryBuilder()
                             .insert()
                             .into(Role)
                             .values(resource)
                             .execute()
                             .catch(err => {
-                                return new AppError(err.message, 422 , 'DatabaseError', 'SQLInsertFailed');
+                                // return new AppError(err.message, 422 , 'DatabaseError', 'SQLInsertFailed');
+                                return err;
                             });
     return queryResult;
 }
 
-export const putRoleById = async (): Promise<void> => {
-
-}
-
-export const patchRoleById = async (): Promise<void> => {
-
+export const updateRoleById = async (roleId: string, resource: PutRoleDTO): Promise<UpdateResult | TypeORMError> => {
+    const queryResult = await AppDataSource.createQueryBuilder()
+                            .update(Role)
+                            .set(resource)
+                            .where("role.role_id = :role_id", { role_id: roleId })
+                            .execute()
+                            .catch(err => {
+                                // return new AppError(err.message, 422 , 'DatabaseError', 'SQLUpdateFailed');
+                                return err;
+                            });
+    return queryResult;
 }
 
 export const deleteRoleById = async (): Promise<void> => {
 
 }
 
-export const getRoleById = async (roleId: string): Promise<Role | Error> => {
+export const getRoleById = async (roleId: string): Promise<Role | TypeORMError> => {
     const queryResult = await AppDataSource.createQueryBuilder()
                             .select("role")
                             .from(Role, "role")
@@ -40,7 +46,7 @@ export const getRoleById = async (roleId: string): Promise<Role | Error> => {
     return queryResult;
 }
 
-export const getRoleByTitleOrSlug = async(roleTitle: string, roleSlug: string): Promise<Role | Error> => {
+export const getRoleByTitleOrSlug = async(roleTitle: string, roleSlug: string): Promise<Role | TypeORMError> => {
     const queryResult = await AppDataSource.createQueryBuilder()
                             .select("role")
                             .from(Role, "role")
@@ -53,7 +59,7 @@ export const getRoleByTitleOrSlug = async(roleTitle: string, roleSlug: string): 
     return queryResult;
 }
 
-export const getRoles = async (): Promise<Role[] | Error> => {
+export const getRoles = async (): Promise<Role[] | TypeORMError> => {
     const queryResult = await AppDataSource.createQueryBuilder()
                         .select("role")
                         .from(Role, "role")

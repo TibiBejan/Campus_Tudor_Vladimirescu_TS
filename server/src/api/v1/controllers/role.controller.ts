@@ -1,17 +1,17 @@
 import { AppError } from "@api/v1/helpers";
 import { asyncMiddleware } from "@api/v1/middlewares";
-import { create, readAll, readById } from '@api/v1/services/role.service';
+import { create, putById, readAll, readById } from '@api/v1/services/role.service';
 import { NextFunction, Request, Response } from "express";
 
 export const createRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const roleResource = req.body;
-        const roleId = await create(roleResource);
+        const roleResponse = await create(roleResource);
 
         res.status(201).json({
             success: true,
             payload: {
-                id: roleId,
+                id: roleResponse,
             },
             error: null,
             message: 'Success, user role inserted into the database!'
@@ -65,6 +65,27 @@ export const updateRole = asyncMiddleware(async (req: Request, res: Response, ne
         status: "success",
         message: "Role updated from the database",
     });
+});
+
+export const replaceRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const roleResource = req.body;
+        const { roleId } = req.params;
+
+        await putById(roleId, roleResource);
+
+        res.status(200).json({
+            success: true,
+            payload: {
+                id: roleId,
+            },
+            error: null,
+            message: 'Success, user role updated into the database!'
+        });
+    }
+    catch(err) {
+        next(err);
+    }
 });
 
 export const deleteRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {

@@ -4,7 +4,7 @@ import validators from '@api/v1/validators';
 import Joi from 'joi';
 
 const validatorMiddleware: ValidatorHandler = (schema, property) => {
-    return  async (req, res, next) => {
+    return  async (req, _res, next) => {
         try {
             if(!validators.hasOwnProperty(schema)) {
                 next(new AppError(`Specified schema: ${schema} does not exist on the validators declaration!`, 422, 'Validation', 'ValidationSchemaMissing'));
