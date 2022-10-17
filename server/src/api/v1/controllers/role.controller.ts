@@ -1,6 +1,6 @@
 import { AppError } from "@api/v1/helpers";
 import { asyncMiddleware } from "@api/v1/middlewares";
-import { create, putById, readAll, readById } from '@api/v1/services/role.service';
+import { create, deleteById, patchById, putById, readAll, readById } from '@api/v1/services/role.service';
 import { NextFunction, Request, Response } from "express";
 
 export const createRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
@@ -61,10 +61,24 @@ export const getRoles = asyncMiddleware(async (req: Request, res: Response, next
 });
 
 export const updateRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-        status: "success",
-        message: "Role updated from the database",
-    });
+    try {
+        const roleResource = req.body;
+        const { roleId } = req.params;
+
+        await patchById(roleId, roleResource);
+
+        res.status(200).json({
+            success: true,
+            payload: {
+                id: roleId,
+            },
+            error: null,
+            message: 'Success, user role updated into the database!'
+        });
+    }
+    catch(err) {
+        next(err);
+    }
 });
 
 export const replaceRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
@@ -89,8 +103,21 @@ export const replaceRole = asyncMiddleware(async (req: Request, res: Response, n
 });
 
 export const deleteRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-        status: "success",
-        message: "Role deleted from the database",
-    });
+    try {
+        const { roleId } = req.params;
+
+        await deleteById(roleId);
+
+        res.status(200).json({
+            success: true,
+            payload: {
+                id: roleId,
+            },
+            error: null,
+            message: 'Success, user role deleted from the database!'
+        });
+    }
+    catch(err) {
+        next(err);
+    }
 });

@@ -1,7 +1,7 @@
 import { CreateRoleDTO, PatchRoleDTO, PutRoleDTO } from '@api/v1/dto/role.dto';
 import { AppError } from '@api/v1/helpers';
 import { Role } from '@api/v1/models';
-import { addRole, deleteRoleById, getRoleById, getRoleByTitleOrSlug, getRoles, getRolesWithLimit, updateRoleById } from '@api/v1/repositories/role.repository';
+import { addRole, deleteRoleById, getRoleById, getRoleByTitleOrSlug, getRoles, getRolesWithLimit, replaceRoleById, updateRoleById } from '@api/v1/repositories/role.repository';
 
 /**
  * * Method used to insert a role into the database
@@ -28,15 +28,38 @@ export const create = async(resource: CreateRoleDTO): Promise<string> => {
 }
 
 /**
- * * Method used to insert a role into the database
+ * * Method used to replace  a role from the database
  * @param id, Role Unique identifier used to query the database and find existing Role
- * @param resource, validated role object in accordance with the Role Model 
- * @returns the created Role ID, or throws Error in case of failure
+ * @param resource, validated role object in accordance with the Role Model Put DTO
+ * @returns void
  * ! Error Types
  * DatabaseError if there is a database error while fetching the resource
  * ResourceError if desired Role does not exist inside the database
  */
 export const putById = async(id: string, resource: PutRoleDTO): Promise<void> => {
+    const existingResource = await getRoleById(id);
+
+    if(!existingResource) {
+        throw new AppError('There is a problem updating the resource, role does not exist!', 404, 'ResourceError', 'RoleNotFound');
+    }
+
+    const response = await replaceRoleById(id, resource);
+
+    if(response instanceof Error) {
+        throw new AppError(response.message, 500, 'DatabaseError', 'SQLUpdateQueryFailed');
+    }
+}
+
+/**
+ * * Method used to update a role from the database
+ * @param id, Role Unique identifier used to query the database and find existing Role
+ * @param resource, validated role object in accordance with the Role Model Patch DTO
+ * @returns void
+ * ! Error Types
+ * DatabaseError if there is a database error while fetching the resource
+ * ResourceError if desired Role does not exist inside the database
+ */
+export const patchById = async(id: string, resource: PatchRoleDTO): Promise<void> => {
     const existingResource = await getRoleById(id);
 
     if(!existingResource) {
@@ -50,12 +73,26 @@ export const putById = async(id: string, resource: PutRoleDTO): Promise<void> =>
     }
 }
 
-export const patchById = async(id: string, resource: PatchRoleDTO): Promise<void> => {
-
-}
-
+/**
+ * * Method used to delete a role from the database
+ * @param id, Role Unique identifier used to query the database and find existing Role
+ * @returns void
+ * ! Error Types
+ * DatabaseError if there is a database error while fetching the resource
+ * ResourceError if desired Role does not exist inside the database
+ */
 export const deleteById = async(id: string): Promise<void> => {
+    const existingResource = await getRoleById(id);
 
+    if(!existingResource) {
+        throw new AppError('There is a problem deleting the resource, role does not exist!', 404, 'ResourceError', 'RoleNotFound');
+    }
+
+    const response = await deleteRoleById(id);
+
+    if(response instanceof Error) {
+        throw new AppError(response.message, 500, 'DatabaseError', 'SQLDeleteQueryFailed');
+    }
 }
 
 /**
