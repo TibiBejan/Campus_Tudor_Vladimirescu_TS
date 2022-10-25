@@ -1,5 +1,4 @@
 import { CreateRoleDTO, PatchRoleDTO, PutRoleDTO } from '@api/v1/dto/role.dto';
-import { AppError } from '@api/v1/helpers';
 import { Role } from '@api/v1/models';
 import { AppDataSource } from '@config/database';
 import { DeleteResult, InsertResult, TypeORMError, UpdateResult } from 'typeorm';
