@@ -18,6 +18,11 @@ const validatorMiddleware: ValidatorHandler = (schema, property) => {
 
             await validators[schema].validateAsync(requestStructure[property], {
                 abortEarly: false,
+                errors: {
+                    wrap: {
+                      label: ''
+                    }
+                }
             });
 
             next();

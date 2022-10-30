@@ -44,11 +44,13 @@ class Role {
     })
     deletedAt?: Date
 
-    @OneToMany(() => UserRole, userRole => userRole.role)
-    userConnection: UserRole[]
+    @OneToMany(() => UserRole, userRole => userRole.role, {
+        cascade: true,
+    })
+    userConnection!: UserRole[]
 
     @OneToMany(() => RoleSecurable, roleSecurable => roleSecurable.role)
-    securableConnection: RoleSecurable[]
+    securableConnection!: RoleSecurable[]
 }
 
 export default Role;

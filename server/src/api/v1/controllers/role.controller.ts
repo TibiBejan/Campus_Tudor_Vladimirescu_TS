@@ -1,7 +1,7 @@
-import { AppError } from "@api/v1/helpers";
 import { asyncMiddleware } from "@api/v1/middlewares";
-import { create, deleteById, patchById, putById, readAll, readById } from '@api/v1/services/role.service';
+import { create, deleteById, patchById, putById, readAll, readById, restore } from '@api/v1/services/role.service';
 import { NextFunction, Request, Response } from "express";
+import { parse as parseBoolean } from 'query-string';
 
 export const createRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -22,9 +22,30 @@ export const createRole = asyncMiddleware(async (req: Request, res: Response, ne
     }
 });
 
+export const restoreRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { roleId } = req.params;
+        
+        await restore(roleId);
+
+        res.status(200).json({
+            success: true,
+            payload: {
+                id: roleId,
+            },
+            error: null,
+            message: 'Success, user role restored!'
+        });
+    }
+    catch(err) {
+        next(err);
+    }
+});
+
 export const getRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { roleId } = req.params;
+
         const role = await readById(roleId);
 
         res.status(200).json({
@@ -33,7 +54,27 @@ export const getRole = asyncMiddleware(async (req: Request, res: Response, next:
                 role,
             },
             error: null,
-            message: 'Success, user role fetched from the database!',
+            message: `Success, user role fetched from the database!`,
+        });
+    }
+    catch(err) {
+        next(err)
+    }
+});
+
+export const getDeletedRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { roleId } = req.params;
+
+        const deletedRole = await readById(roleId, true);
+
+        res.status(200).json({
+            success: true,
+            payload: {
+                deletedRole,
+            },
+            error: null,
+            message: `Success, user role fetched from the database trashcan!`,
         });
     }
     catch(err) {
@@ -52,7 +93,26 @@ export const getRoles = asyncMiddleware(async (req: Request, res: Response, next
                 total_results: roles.length,
             },
             error: null,
-            message: 'Success, user roles fetched from the database!',
+            message: `Success, user roles fetched from the database!`,
+        });
+    }
+    catch(err) {
+        next(err);
+    }
+});
+
+export const getDeletedRoles = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const deletedRoles = await readAll(true);
+
+        res.status(200).json({
+            success: true,
+            payload: {
+                deletedRoles,
+                total_results: deletedRoles.length,
+            },
+            error: null,
+            message: `Success, user roles fetched from the database trashcan!`,
         });
     }
     catch(err) {
@@ -105,16 +165,19 @@ export const replaceRole = asyncMiddleware(async (req: Request, res: Response, n
 export const deleteRole = asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { roleId } = req.params;
+        const deleteQuery = req.query.permanent ? req.query.permanent : false;
+        const deleteFlag = parseBoolean(`permanent=${deleteQuery}`, { parseBooleans: true });
 
-        await deleteById(roleId);
+        if(deleteFlag.permanent) {
+            await deleteById(roleId, true);
+        } else {
+            await deleteById(roleId);
+        }
 
-        res.status(200).json({
+        res.status(204).json({
             success: true,
-            payload: {
-                id: roleId,
-            },
             error: null,
-            message: 'Success, user role deleted from the database!'
+            message: `Success, user role ${deleteFlag.permanent ? 'permanently' : 'soft'} deleted from the database!`
         });
     }
     catch(err) {
