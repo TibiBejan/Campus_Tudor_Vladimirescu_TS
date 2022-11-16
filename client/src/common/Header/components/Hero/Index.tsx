@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DefaultProps } from './Index.types';
+import { Button } from '../../../Button';
 import { Image } from '../../../Image/Index';
 import { H1 } from '../../../Typography/Index';
-import { Button } from '../../../Button/Index';
-import { StyledHero, HeroBackground, HeroContent } from './Index.style';
+import { HeroBackground, HeroContent, StyledHero } from './Index.style';
+import { DefaultProps } from './Index.types';
 
 const Hero:React.FC<DefaultProps> = ({ type, imagePath, imageAlt, title, linkLabel, linkPath }) => {
     // React Router
@@ -45,3 +45,4 @@ const Hero:React.FC<DefaultProps> = ({ type, imagePath, imageAlt, title, linkLab
 }
 
 export { Hero };
+

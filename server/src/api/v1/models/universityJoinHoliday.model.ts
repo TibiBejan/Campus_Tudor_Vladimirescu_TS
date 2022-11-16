@@ -1,16 +1,21 @@
 import { BeforeRecover, BeforeSoftRemove, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import Role from './role.model';
-import Securable from './securable.model';
+import University from './university.model';
+import UniversityHoliday from './universityHoliday.model';
 
 @Entity({
-    name: 'role_with_securable'
+    name: 'university_with_holiday'
 })
-class RoleSecurable {
+class UniversityWithHoliday {
     @PrimaryColumn('uuid')
-    role_id: string
+    university_id: string
 
     @PrimaryColumn('uuid')
-    securable_id: string
+    university_holiday_id: string
+
+    @Column({
+        default: true
+    })
+    accommodate_students: boolean
 
     @Column({
         default: true
@@ -32,23 +37,17 @@ class RoleSecurable {
     })
     deletedAt?: Date
 
-    @ManyToOne(() => Role, role => role.securables, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    })
+    @ManyToOne(() => University, university => university.holidays)
     @JoinColumn({
-        name: 'role_id'
+        name: 'university_id'
     })
-    role: Role
+    university: University
 
-    @ManyToOne(() => Securable, securable => securable.roles, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    })
+    @ManyToOne(() => UniversityHoliday, universityHoliday => universityHoliday.universities)
     @JoinColumn({
-        name: 'securable_id'
+        name: 'university_holiday_id'
     })
-    securable: Securable
+    universityHoliday: UniversityHoliday
 
     @BeforeSoftRemove()
     updateStatus() {
@@ -61,5 +60,5 @@ class RoleSecurable {
     }
 }
 
-export default RoleSecurable;
+export default UniversityWithHoliday;
 

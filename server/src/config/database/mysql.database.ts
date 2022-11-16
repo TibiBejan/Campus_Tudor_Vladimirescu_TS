@@ -1,7 +1,7 @@
+import { Hall, HallJoinTax, HallOccupancy, HallRoom, HallRoomOccupancy, HallRoomType, HallStaff, HallTax, Role, RoleSecurable, Securable, Session, StudentAllocation, University, UniversityHall, UniversityHoliday, UniversityOccupancy, UniversityUser, UniversityWithHoliday, User, UserEnrollment, UserEnrollmentTracking, UserProfile, UserRelative, UserRole, UserRoleTracking } from '@api/v1/models';
 import environmentConstants from '@config/constants';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User, UserRole, Role, RoleSecurable, Securable } from '@api/v1/models';
 
 const AppDataSource = new DataSource({
     type: "mysql",
@@ -15,9 +15,30 @@ const AppDataSource = new DataSource({
     entities: [
         User,
         UserRole,
+        UserProfile,
+        UserEnrollment,
+        UserEnrollmentTracking,
+        UserRelative,
         Role,
+        UserRoleTracking,
         RoleSecurable,
-        Securable
+        Securable,
+        Session,
+        University,
+        UniversityHall,
+        UniversityUser,
+        UniversityWithHoliday,
+        UniversityHoliday,
+        UniversityOccupancy,
+        Hall,
+        HallJoinTax,
+        HallTax,
+        HallStaff,
+        HallOccupancy,
+        HallRoom,
+        HallRoomType,
+        HallRoomOccupancy,
+        StudentAllocation,
     ],
     subscribers: [],
     migrations: [],

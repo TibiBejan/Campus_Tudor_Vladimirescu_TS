@@ -1,21 +1,21 @@
 import React, { useRef } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Scrollbar } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 // Types and Interfaces
 import { DefaultProps } from './Index.types';
 // Modules
-import MenuStaticData from './Index.data.json';
+import { Button } from '../../../Button';
 import { PageLink } from '../../../PageLink/Index';
 import { Text } from '../../../Typography/Index';
-import { Button } from '../../../Button/Index';
 import { UniversitiesSwiperSlider } from './components/UniversitiesSwiperSlide/Index';
+import MenuStaticData from './Index.data.json';
 // Animation
-import { menuAnimation, menuActionsAnimation, menuActionsContentAnimation, menuActionsContentChildrenAnimation, menuActionsBorderAnimation, menuUniversitiesAnimation, menuUniversitiesChildrenAnimation } from './Index.animation';
+import { menuActionsAnimation, menuActionsBorderAnimation, menuActionsContentAnimation, menuActionsContentChildrenAnimation, menuAnimation, menuUniversitiesAnimation, menuUniversitiesChildrenAnimation } from './Index.animation';
 // Styles
-import { StyledMenu, MenuActions, MenuActionContent, ActionsList, ActionsListItem, AnimatedBorder, MenuUniversities, UniversitiesNavigation, SliderNavigation, UniversitiesSlider } from './Index.style';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
+import { ActionsList, ActionsListItem, AnimatedBorder, MenuActionContent, MenuActions, MenuUniversities, SliderNavigation, StyledMenu, UniversitiesNavigation, UniversitiesSlider } from './Index.style';
 
 const Menu:React.FC<DefaultProps> = ({ visible }) => {
   // Refs
@@ -150,3 +150,4 @@ const Menu:React.FC<DefaultProps> = ({ visible }) => {
 }
 
 export { Menu };
+

@@ -38,6 +38,7 @@ roleRouter.put('/:roleId',
 
 roleRouter.delete('/:roleId?permanent', 
     validatorMiddleware('rolePARAMS', 'params'), 
+    validatorMiddleware('roleQUERY', 'query'),
     deleteRole
 );
 roleRouter.delete('/:roleId', 

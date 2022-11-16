@@ -1,16 +1,16 @@
-import { BeforeRecover, BeforeSoftRemove, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import Role from './role.model';
+import { BeforeRecover, BeforeSoftRemove, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import University from './university.model';
 import User from './user.model';
 
 @Entity({
-    name: 'user_with_role'
+    name: 'university_with_user'
 })
-class UserRole {
+class UniversityUser {
     @PrimaryColumn('uuid')
-    user_id: string
+    university_id: string
 
     @PrimaryColumn('uuid')
-    role_id: string
+    user_id: string
 
     @Column({
         default: true
@@ -32,17 +32,17 @@ class UserRole {
     })
     deletedAt?: Date
 
-    @ManyToOne(() => User, user => user.roles)
+    @ManyToOne(() => University, university => university.users)
+    @JoinColumn({
+        name: 'university_id'
+    })
+    university: University
+
+    @ManyToOne(() => User, user => user.universities)
     @JoinColumn({
         name: 'user_id'
     })
     user: User
-
-    @ManyToOne(() => Role, role => role.users)
-    @JoinColumn({
-        name: 'role_id'
-    })
-    role: Role
 
     @BeforeSoftRemove()
     updateStatus() {
@@ -55,5 +55,7 @@ class UserRole {
     }
 }
 
-export default UserRole;
+export default UniversityUser;
+
+
 

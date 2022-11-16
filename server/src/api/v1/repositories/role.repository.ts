@@ -1,5 +1,5 @@
 import { CreateRoleDTO, PatchRoleDTO, PutRoleDTO } from '@api/v1/dto/role.dto';
-import { Role } from '@api/v1/models';
+import { Role, RoleSecurable } from '@api/v1/models';
 import { AppDataSource } from '@config/database';
 import { DeleteResult, InsertResult, TypeORMError, UpdateResult } from 'typeorm';
 
@@ -66,9 +66,19 @@ export const deleteRoleById = async (roleId: string): Promise<DeleteResult | Typ
 
 export const softDeleteRoleById = async (roleId: string): Promise<DeleteResult | TypeORMError> => {
     const queryResult = await AppDataSource.createQueryBuilder()
+                        .select("role")
+                        .from(Role, "role")
+                        .leftJoinAndSelect("role.securables", "role_with_securable")
+                        .leftJoinAndSelect("role_with_securable.securable", "securable")
                         .softDelete()
-                        .from(Role)
-                        .where("role.role_id = :role_id", { role_id: roleId })
+                        .from("role")
+
+                        .softDelete()
+                        .from("role_with_securable")
+
+                        .softDelete()
+                        .from("securable")
+                        
                         .execute()
                         .catch(err => {
                             return err;
@@ -83,8 +93,10 @@ export const getRoleById = async (roleId: string, withDeleted: boolean = false):
         queryResult = await AppDataSource.createQueryBuilder()
                             .select("role")
                             .from(Role, "role")
-                            .withDeleted()
+                            // .leftJoinAndSelect("role.securables", "role_with_securable")
+                            // .leftJoinAndSelect("role_with_securable.securable", "securable")
                             .where("role.role_id = :role_id", { role_id:  roleId})
+                            .withDeleted()
                             .getOne()
                             .catch(err => {
                                 return err.driverError;
@@ -93,12 +105,27 @@ export const getRoleById = async (roleId: string, withDeleted: boolean = false):
         queryResult = await AppDataSource.createQueryBuilder()
                             .select("role")
                             .from(Role, "role")
-                            .where("role.role_id = :role_id", { role_id:  roleId})
+                            // .leftJoinAndSelect("role.securables", "role_with_securable")
+                            // .leftJoinAndSelect("role_with_securable.securable", "securable")
+                            .where("role.role_id = :role_id", { role_id: roleId })
+                            // .select([
+                            //     "role.role_id",
+                            //     "role.title",
+                            //     "role.slug",
+                            //     "role.description",
+                            //     "role.is_active",
+                            //     "role_with_securable",
+                            //     "securable.securable_id",
+                            //     "securable.title",
+                            //     "securable.slug",
+                            //     "securable.description",
+                            //     "securable.is_active",
+                            // ])
                             .getOne()
                             .catch(err => {
                                 return err.driverError;
                             });
-    }
+    }           
     return queryResult;
 }
 
@@ -113,6 +140,7 @@ export const getDeletedRoleById = async (roleId: string): Promise<Role | TypeORM
                             .catch(err => {
                                 return err.driverError;
                             });
+
     return queryResult;
 }
 

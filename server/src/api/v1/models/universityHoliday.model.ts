@@ -1,34 +1,34 @@
 import { BeforeRecover, BeforeSoftRemove, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import RoleSecurable from "./roleSecurable.model";
-import UserRole from "./userRole.model";
-import UserRoleTracking from "./userRoleTracking.model";
+import UniversityJoinHoliday from "./universityJoinHoliday.model";
 
 @Entity({
-    name: 'role'
+    name: 'university_holiday'
 })
-class Role {
+class UniversityHoliday {
     @PrimaryGeneratedColumn('uuid')
-    role_id!: string
-
+    university_holiday_id!: string
+ 
     @Column({
         unique: true,
     })
-    title!: string
+    holiday_name!: string
 
+     
     @Column({
         unique: true,
     })
-    slug!: string
+    start_date!: Date
 
+     
     @Column({
-        nullable: true
+        unique: true,
     })
-    description!: string
+    end_date!: Date
 
     @Column({
         default: true,
     })
-    is_active!: boolean
+    is_active: boolean
 
     @CreateDateColumn({
         name: 'created_at'
@@ -45,16 +45,10 @@ class Role {
     })
     deletedAt?: Date
 
-    @OneToMany(() => UserRole, userRole => userRole.role)
-    users: UserRole[]
-
-    @OneToMany(() => RoleSecurable, roleSecurable => roleSecurable.role, {
+    @OneToMany(() => UniversityJoinHoliday, universityJoinHoliday => universityJoinHoliday.universityHoliday, {
         cascade: true,
     })
-    securables: RoleSecurable[]
-
-    @OneToMany(() => UserRoleTracking, userRoleTracking => userRoleTracking.role)
-    rolesTracking: UserRoleTracking[]
+    universities: UniversityJoinHoliday[]
 
     @BeforeSoftRemove()
     updateStatus() {
@@ -67,4 +61,4 @@ class Role {
     }
 }
 
-export default Role;
+export default UniversityHoliday;

@@ -1,21 +1,31 @@
 import { BeforeRecover, BeforeSoftRemove, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import Role from './role.model';
-import Securable from './securable.model';
+import Hall from './hall.model';
+import HallTax from './hallTax.model';
+
 
 @Entity({
-    name: 'role_with_securable'
+    name: 'hall_with_tax'
 })
-class RoleSecurable {
+class HallJoinTax {
     @PrimaryColumn('uuid')
-    role_id: string
+    hall_tax_id: string
 
     @PrimaryColumn('uuid')
-    securable_id: string
+    hall_id: string
 
     @Column({
         default: true
     })
     is_active: boolean
+
+    @Column()
+    hall_name: string
+
+    @Column()
+    room_type: string
+
+    @Column()
+    accommodated_students: string
 
     @CreateDateColumn({
         name: 'created_at'
@@ -32,23 +42,17 @@ class RoleSecurable {
     })
     deletedAt?: Date
 
-    @ManyToOne(() => Role, role => role.securables, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    })
+    @ManyToOne(() => HallTax, hallTax => hallTax.halls)
     @JoinColumn({
-        name: 'role_id'
+        name: 'hall_tax_id'
     })
-    role: Role
+    hallTax: HallTax
 
-    @ManyToOne(() => Securable, securable => securable.roles, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    })
+    @ManyToOne(() => Hall, hall => hall.taxes)
     @JoinColumn({
-        name: 'securable_id'
+        name: 'hall_id'
     })
-    securable: Securable
+    hall: Hall
 
     @BeforeSoftRemove()
     updateStatus() {
@@ -61,5 +65,5 @@ class RoleSecurable {
     }
 }
 
-export default RoleSecurable;
+export default HallJoinTax;
 

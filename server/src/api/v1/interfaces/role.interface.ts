@@ -8,3 +8,7 @@ export interface IRoleBody {
 export interface IRoleParams {
     roleId: string,
 }
+
+export interface IRoleQuery {
+    permanent: boolean,
+}

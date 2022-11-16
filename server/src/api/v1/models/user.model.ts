@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeRecover, BeforeSoftRemove, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import Session from './session.model';
+import StudentAllocation from "./studentAllocation.model";
+import UniversityUser from "./universityUser.model";
+import UserEnrollment from "./userEnrollment.model";
+import UserProfile from "./userProfile.model";
+import UserRelative from "./userRelative.model";
 import UserRole from './userRole.model';
 
 @Entity({
@@ -50,8 +56,48 @@ class User {
     })
     deletedAt?: Date
 
-    @OneToMany(() => UserRole, userRole => userRole.user)
-    roleConnection: UserRole[]
+    @OneToOne(() => UserProfile, userProfile => userProfile.user)
+    profile: UserProfile
+
+    @OneToMany(() => UserRole, userRole => userRole.user, {
+        cascade: true
+    })
+    roles: UserRole[]
+
+    @OneToMany(() => Session, session => session.user, {
+        cascade: true
+    })
+    sessions: Session[]
+
+    @OneToMany(() => StudentAllocation, studentAllocation => studentAllocation.user, {
+        cascade: true,
+    })
+    allocations: StudentAllocation[]
+
+    @OneToMany(() => UniversityUser, universityUser => universityUser.user, {
+        cascade: true
+    })
+    universities: UniversityUser[]
+
+    @OneToMany(() => UserEnrollment, userEnrollment => userEnrollment.user, {
+        cascade: true
+    })
+    enrollments: UserEnrollment[]
+
+    @OneToMany(() => UserRelative, userRelative => userRelative.user, {
+        cascade: true
+    })
+    relatives: UserRelative[]
+
+    @BeforeSoftRemove()
+    updateStatus() {
+        this.is_active = false
+    }
+
+    @BeforeRecover()
+    recoverStatus() {
+        this.is_active = true
+    }
 }
 
 export default User;

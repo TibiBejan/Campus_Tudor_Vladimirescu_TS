@@ -1,16 +1,16 @@
 import { BeforeRecover, BeforeSoftRemove, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import Role from './role.model';
-import Securable from './securable.model';
+import Hall from './hall.model';
+import University from './university.model';
 
 @Entity({
-    name: 'role_with_securable'
+    name: 'university_with_hall'
 })
-class RoleSecurable {
+class UniversityHall {
     @PrimaryColumn('uuid')
-    role_id: string
+    university_id: string
 
     @PrimaryColumn('uuid')
-    securable_id: string
+    hall_id: string
 
     @Column({
         default: true
@@ -32,23 +32,23 @@ class RoleSecurable {
     })
     deletedAt?: Date
 
-    @ManyToOne(() => Role, role => role.securables, {
+    @ManyToOne(() => Hall, hall => hall.universities, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })
     @JoinColumn({
-        name: 'role_id'
+        name: 'hall_id'
     })
-    role: Role
+    hall: Hall
 
-    @ManyToOne(() => Securable, securable => securable.roles, {
+    @ManyToOne(() => University, university => university.halls, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })
     @JoinColumn({
-        name: 'securable_id'
+        name: 'university_id'
     })
-    securable: Securable
+    university: University
 
     @BeforeSoftRemove()
     updateStatus() {
@@ -61,5 +61,5 @@ class RoleSecurable {
     }
 }
 
-export default RoleSecurable;
+export default UniversityHall;
 

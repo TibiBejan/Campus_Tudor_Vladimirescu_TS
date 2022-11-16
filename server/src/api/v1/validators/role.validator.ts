@@ -1,6 +1,6 @@
-import { IRoleBody, IRoleParams } from '@api/v1/interfaces/role.interface';
+import { IRoleBody, IRoleParams, IRoleQuery } from '@api/v1/interfaces/role.interface';
 import Joi from 'joi';
-import { descriptionSchema, isActiveSchema, roleIdSchema, slugSchema, titleSchema } from './helpers.validator';
+import { descriptionSchema, idSchema, isActiveSchema, slugSchema, titleSchema } from './helpers.validator';
 
 export const CreateRoleSchema: Joi.ObjectSchema = Joi.object<IRoleBody>({
     title: titleSchema.required().messages({
@@ -38,7 +38,13 @@ export const PutRoleSchema: Joi.ObjectSchema = Joi.object<IRoleBody>({
 });
 
 export const RoleParamsSchema = Joi.object<IRoleParams>({
-    roleId: roleIdSchema.required().messages({
+    roleId: idSchema.required().messages({
         'any.required': `"Id field" is a required field in order to identify the resource.`
+    })
+});
+
+export const RoleQuerySchema = Joi.object<IRoleQuery>({
+    permanent: Joi.boolean().messages({
+        'boolean.base': `"Permanent query parameter" should have a type of 'boolean.'`,
     })
 });

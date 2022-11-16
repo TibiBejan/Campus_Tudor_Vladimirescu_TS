@@ -26,8 +26,8 @@ export const isActiveSchema = Joi.boolean().required().messages({
     'any.required': `"Is_Active field" is a required field.`
 });
 
-export const roleIdSchema = Joi.string().uuid().trim().messages({
+export const idSchema = Joi.string().uuid().trim().messages({
     'string.base': `Id field" should be a type of 'text.'`,
     'string.empty': `"Id field" cannot be an empty field.`,
     'string.guid': `"Id field" must have a valid structure of uuid identifier.`,
-})
+});

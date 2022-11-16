@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { StyledHeroProps } from './Index.types';
 import { H1 } from "../../../Typography/Index";
-import { Button } from "../../../Button/Index";
+import { StyledHeroProps } from './Index.types';
 
 export const StyledHero = styled.div<StyledHeroProps>`
     position: relative;
